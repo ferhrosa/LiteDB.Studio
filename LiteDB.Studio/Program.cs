@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using ICSharpCode.TextEditor.Util;
+using Avalonia;
+using Avalonia.ReactiveUI;
+using System;
 
-namespace LiteDB.Studio
+namespace LiteDB.Studio;
+
+internal class Program
 {
-    static class Program
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
-        {
-            Application.ApplicationExit += OnExit;
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args.Length == 0 ? null : args[0]));
-        }
+    // Initialization code. Don't use any Avalonia, third-party APIs or any
+    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
+    // yet and stuff might break.
+    [STAThread]
+    public static void Main(string[] args) => BuildAvaloniaApp()
+        .StartWithClassicDesktopLifetime(args);
 
-        private static void OnExit(object sender, EventArgs eventArgs)
-        {
-            Application.ApplicationExit -= OnExit;
-            AppSettingsManager.PersistData();
-        }
-    }
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .LogToTrace()
+            .UseReactiveUI();
 }

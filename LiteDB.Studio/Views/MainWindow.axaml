@@ -1,0 +1,85 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LiteDB.Studio.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="300"
+        x:Class="LiteDB.Studio.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LiteDB Studio">
+
+  <Design.DataContext>
+    <vm:MainWindowViewModel/>
+  </Design.DataContext>
+
+  <!--<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+
+  <Grid RowDefinitions="Auto,*,Auto">
+
+    <!--<Image Grid.Row="0" Source="/Assets/arrow_refresh.png" Stretch="None" />-->
+
+    <StackPanel Orientation="Horizontal" ToolTip.Tip="Recent Databases">
+      <Button>
+        <Image Grid.Row="0" Source="/Assets/recentDBsDropDownButton.Image.png" Width="16" />
+        <Button.Flyout>
+          <MenuFlyout Placement="BottomEdgeAlignedLeft">
+            <MenuItem Header="_Settings">
+              <MenuItem Header="_Clear recent list" />
+              <MenuItem Header="_Validate recent list" />
+            </MenuItem>
+            <Separator />
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
+
+      <Button>
+        <StackPanel Orientation="Horizontal">
+          <Image Grid.Row="0" Source="/Assets/database_connect.png" Width="16" Margin="0 0 5 0" />
+          <TextBlock Text="Connect" FontSize="12" VerticalAlignment="Center" />
+        </StackPanel>
+      </Button>
+
+      <Separator Width="1" Background="LightGray" Margin="2 0" />
+
+      <Button>
+        <StackPanel Orientation="Horizontal">
+          <Image Grid.Row="0" Source="/Assets/arrow_refresh.png" Width="16" Margin="0 0 5 0" />
+          <TextBlock Text="Refresh" FontSize="12" VerticalAlignment="Center" />
+        </StackPanel>
+      </Button>
+    </StackPanel>
+
+    <!--<Menu Grid.Row="0" >
+      <MenuItem Header="_Icon" ToolTip.Tip="Recent Databases" >
+        <MenuItem.Icon>
+          <Image Source="/Assets/arrow_refresh.png" />
+        </MenuItem.Icon>
+        <MenuItem Header="aaaa">
+          <MenuItem.Icon>
+            <Image Source="/Assets/arrow_refresh.png" />
+          </MenuItem.Icon>
+        </MenuItem>
+      </MenuItem>
+    </Menu>-->
+
+    <Grid ColumnDefinitions="100,4,*" Grid.Row="1">
+      <TreeView Grid.Column="0"></TreeView>
+      <GridSplitter Grid.Column="1" Background="LightGray" />
+
+      <Grid Grid.Column="2" RowDefinitions="100,4,*">
+        <TextBox Grid.Row="0" AcceptsReturn="True" AcceptsTab="True" />
+        <GridSplitter Grid.Row="1" Background="LightGray" />
+        <TextBox Grid.Row="2" IsReadOnly="True" AcceptsReturn="True" AcceptsTab="True" />
+      </Grid>
+    </Grid>
+
+    <Grid ColumnDefinitions="*,150,100,110" Grid.Row="2">
+      <TextBlock Grid.Column="0" />
+      <TextBlock Grid.Column="1" Text="0 documents" TextAlignment="Center" FontSize="9" />
+      <ProgressBar Grid.Column="2" Margin="15 0" />
+      <TextBlock Grid.Column="3" Margin="5 0" Text="00:00:00.0000" TextAlignment="Right" FontSize="9" />
+    </Grid>
+  </Grid>
+
+
+</Window>
